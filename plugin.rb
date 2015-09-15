@@ -248,7 +248,7 @@ after_initialize do
       def self.tags_by_count(guardian, opts=nil)
         opts = opts || {}
         result = TopicCustomField.where(name: TAGS_FIELD_NAME)
-                                 .joins(:topic)
+                                 .joins("LEFT JOIN topics ON topics.id = topic_custom_fields.topic_id")
                                  .group(:value)
                                  .limit(opts[:limit] || 5)
                                  .order('COUNT(topic_custom_fields.value) DESC')
