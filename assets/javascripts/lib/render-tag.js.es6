@@ -12,7 +12,7 @@ var renderTag = function(tag, params) {
 
   var val = "<" + tagName + href + " class='" + classes.join(" ") + "'>" + tag + "</" + tagName + ">";
 
-  if (params.count) {
+  if (params.count || params.count == 0) {
     val += " <span class='discourse-tag-count'>x" + params.count + "</span>";
   }
 

@@ -224,7 +224,13 @@ after_initialize do
         tags = tags.where('value like ?', "%#{term}%")
       end
 
-      tags = tags.count(:value).map {|t, c| { id: t, text: t, count: c } }
+      tags = tags.count(:value).map do |t, c|
+        {
+          id: t,
+          text: t,
+          count: TopicCustomField.where(name: TAGS_FIELD_NAME, value: t).where.not(topic_id: 0).group(:value).count(:value)[t] || 0
+        }
+      end
 
       render json: { results: tags }
     end
