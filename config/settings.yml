@@ -16,7 +16,7 @@ plugins:
     client: true
   max_tag_search_results:
     client: true
-    default: 5
+    default: 10
     min: 1
   show_filter_by_tag:
     client: true

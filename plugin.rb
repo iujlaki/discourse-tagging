@@ -24,7 +24,7 @@ after_initialize do
 
 
   TAGS_FIELD_NAME = "tags"
-  TAGS_FILTER_REGEXP = /[<\\\/\>\#\?\&\s]/
+  TAGS_FILTER_REGEXP = /[<\\\/\>\#\?\&]/
 
   module ::DiscourseTagging
     TAGS_FIELD_NAME = "tags"
@@ -220,7 +220,7 @@ after_initialize do
       tags = self.class.tags_by_count(guardian, params.slice(:limit))
       term = params[:q]
       if term.present?
-        term.gsub!(/[^a-z0-9\.\-]*/, '')
+        term.gsub!(/[^[:alnum:]\s\.\-]*/, '')
         tags = tags.where('value like ?', "%#{term}%")
       end
 
